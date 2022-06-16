@@ -3,6 +3,7 @@ package tech.makers.aceplay.track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import java.net.URL;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -17,7 +18,13 @@ public class TracksController {
   }
 
   @PostMapping("/api/tracks")
-  public Track create(@RequestBody Track track) {
+  public Track create(@RequestBody TrackDTO trackDTO) {
+    String trackTitle = trackDTO.getTitle();
+    String trackArtist = trackDTO.getArtist();
+    URL trackPublicUrl = trackDTO.getPublicUrl();
+
+    Track track = new Track(trackTitle, trackArtist, trackPublicUrl);
+
     return trackRepository.save(track);
   }
 
