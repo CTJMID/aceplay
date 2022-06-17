@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.net.URL;
+import org.springframework.beans.BeanUtils;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -18,12 +19,9 @@ public class TracksController {
   }
 
   @PostMapping("/api/tracks")
-  public Track create(@RequestBody TrackDTO trackDTO) {
-    String trackTitle = trackDTO.getTitle();
-    String trackArtist = trackDTO.getArtist();
-    URL trackPublicUrl = trackDTO.getPublicUrl();
-
-    Track track = new Track(trackTitle, trackArtist, trackPublicUrl);
+  public Track create(@RequestBody TrackDto trackDto) {
+    Track track = new Track();
+    BeanUtils.copyProperties(trackDto, track);
 
     return trackRepository.save(track);
   }

@@ -3,23 +3,25 @@ package tech.makers.aceplay.track;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TrackDTO {
+public class TrackDto {
 
-    private Long id;
+  private Long id;
 
-    private String title;
+  private String title;
 
-    private String artist;
+  private String artist;
 
-    private URL publicUrl;
+  private URL publicUrl;
 
-    public TrackDTO(String title, String artist, URL publicUrl) { 
-        this.title = title;
-        this.artist = artist;
-        this.publicUrl = publicUrl;
-    }
+  public TrackDto() { }
 
-    public TrackDTO(String title, String artist, String publicUrl) throws MalformedURLException {
+  public TrackDto(String title, String artist, URL publicUrl) {
+    this.title = title;
+    this.artist = artist;
+    this.publicUrl = publicUrl;
+  }
+
+  public TrackDto(String title, String artist, String publicUrl) throws MalformedURLException {
     this(title, artist, new URL(publicUrl));
   }
 
@@ -59,5 +61,4 @@ public class TrackDTO {
   public void setPublicUrl(URL publicUrl) {
     this.publicUrl = publicUrl;
   }
-
 }
