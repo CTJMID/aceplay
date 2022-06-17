@@ -27,12 +27,12 @@ public class TracksController {
   }
 
   @PatchMapping("/api/tracks/{id}")
-  public Track update(@PathVariable Long id, @RequestBody Track newTrack) {
+  public Track update(@PathVariable Long id, @RequestBody TrackDto newTrackDto) {
     Track track = trackRepository
             .findById(id)
             .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "No track exists with id " + id));
-    track.setTitle(newTrack.getTitle());
-    track.setArtist(newTrack.getArtist());
+    track.setTitle(newTrackDto.getTitle());
+    track.setArtist(newTrackDto.getArtist());
     trackRepository.save(track);
     return track;
   }
