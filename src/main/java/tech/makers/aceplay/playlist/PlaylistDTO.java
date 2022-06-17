@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import javax.persistence.*;
 import java.util.Set;
 
-public class PlaylistDTO {
+public class PlaylistDto {
     private Long id;
 
     private String name;
@@ -13,13 +13,13 @@ public class PlaylistDTO {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Track> tracks;
 
-    public PlaylistDTO() {}
+    public PlaylistDto() {}
 
-    public PlaylistDTO(String name) {
+    public PlaylistDto(String name) {
     this(name, null);
   }
 
-    public PlaylistDTO(String name, Set<Track> tracks) {
+    public PlaylistDto(String name, Set<Track> tracks) {
     this.name = name;
     this.tracks = tracks;
   }
