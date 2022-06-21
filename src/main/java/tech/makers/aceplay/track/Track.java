@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -14,8 +16,10 @@ public class Track {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @NotEmpty(message = "Title may not be blank")
   private String title;
 
+  @NotEmpty(message = "Artist may not be blank")
   private String artist;
 
   private URL publicUrl;
