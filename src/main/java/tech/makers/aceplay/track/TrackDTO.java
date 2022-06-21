@@ -1,5 +1,9 @@
 package tech.makers.aceplay.track;
 
+import javax.persistence.*;
+
+import tech.makers.aceplay.user.User;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -13,16 +17,26 @@ public class TrackDto {
 
   private URL publicUrl;
 
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id")
+  private User user;
+
+
+  public TrackDto(User user) {
+    this.user = user;
+  }
+
   public TrackDto() { }
 
-  public TrackDto(String title, String artist, URL publicUrl) {
+  public TrackDto(User user, String title, String artist, URL publicUrl) {
+    this.user = user;
     this.title = title;
     this.artist = artist;
     this.publicUrl = publicUrl;
   }
 
-  public TrackDto(String title, String artist, String publicUrl) throws MalformedURLException {
-    this(title, artist, new URL(publicUrl));
+  public TrackDto(User user, String title, String artist, String publicUrl) throws MalformedURLException {
+    this(user, title, artist, new URL(publicUrl));
   }
 
   public String toString() {
@@ -34,6 +48,14 @@ public class TrackDto {
     return id;
   }
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+  
   public String getTitle() {
     return title;
   }

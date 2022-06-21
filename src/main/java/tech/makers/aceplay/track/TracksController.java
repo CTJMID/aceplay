@@ -3,26 +3,39 @@ package tech.makers.aceplay.track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import tech.makers.aceplay.user.User;
+import tech.makers.aceplay.user.UserRepository;
+
 import java.net.URL;
 import org.springframework.beans.BeanUtils;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import java.security.Principal;
 
 // https://www.youtube.com/watch?v=5r3QU09v7ig&t=2410s
 @RestController
 public class TracksController {
   @Autowired private TrackRepository trackRepository;
+  @Autowired private UserRepository userRepository;
+  
 
   @GetMapping("/api/tracks")
-  public Iterable<Track> index() {
-    return trackRepository.findAll();
+  public Iterable<Track> index(Principal principal) {
+    User user = userRepository.findByUsername(principal.getName());
+    Long userId = user.getId();
+    return trackRepository.findByUserId(userId);
+   
   }
 
   @PostMapping("/api/tracks")
-  public Track create(@RequestBody TrackDto trackDto) {
+  public Track create(@RequestBody TrackDto trackDto, Principal principal) {
+    User user = userRepository.findByUsername(principal.getName());
     Track track = new Track();
-    BeanUtils.copyProperties(trackDto, track);
 
+    BeanUtils.copyProperties(trackDto, track);
+    track.setUser(user);
+    
     return trackRepository.save(track);
   }
 
