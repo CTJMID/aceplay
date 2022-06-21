@@ -1,11 +1,12 @@
 package tech.makers.aceplay.playlist;
-import tech.makers.aceplay.track.Track;
-import tech.makers.aceplay.user.User;
+import java.util.Set;
+
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 
-import javax.persistence.*;
-import java.util.Set;
+import tech.makers.aceplay.track.Track;
+import tech.makers.aceplay.user.User;
 
 public class PlaylistDto {
     private Long id;
