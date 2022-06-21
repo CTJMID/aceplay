@@ -36,6 +36,11 @@ public class PlaylistsController {
         .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "No playlist exists with id " + id));
   }
 
+  @DeleteMapping("/api/playlists/delete/{id}")
+  public Playlist get(@PathVariable Long id) {
+    return playlistRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "No playlist exists with id " + id));
+  }
   @PutMapping("/api/playlists/{id}/tracks")
   public Track addTrack(@PathVariable Long id, @RequestBody TrackIdentifierDto trackIdentifierDto) {
     Playlist playlist = playlistRepository.findById(id)
