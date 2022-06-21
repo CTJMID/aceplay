@@ -1,5 +1,7 @@
 package tech.makers.aceplay.playlist;
 import tech.makers.aceplay.track.Track;
+import tech.makers.aceplay.user.User;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 import javax.persistence.*;
@@ -10,16 +12,22 @@ public class PlaylistDto {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+		@ManyToMany(fetch = FetchType.EAGER)
     private Set<Track> tracks;
 
     public PlaylistDto() {}
 
-    public PlaylistDto(String name) {
-    this(name, null);
+    public PlaylistDto(User user, String name) {
+    this(user, name, null);
   }
 
-    public PlaylistDto(String name, Set<Track> tracks) {
+    public PlaylistDto(User user, String name, Set<Track> tracks) {
+    this.user = user;
     this.name = name;
     this.tracks = tracks;
   }
@@ -30,6 +38,14 @@ public class PlaylistDto {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public Long getId() {
