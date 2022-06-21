@@ -7,7 +7,11 @@ import tech.makers.aceplay.track.Track;
 
 import javax.persistence.*;
 
+
 import java.util.Comparator;
+
+import javax.validation.constraints.NotBlank;
+
 import java.util.Set;
 
 // https://www.youtube.com/watch?v=vreyOZxdb5Y&t=448s
@@ -17,6 +21,8 @@ public class Playlist {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+
+  @NotBlank(message = "Blank playlist names are not permitted.")
   private String name;
 
   @ManyToMany(fetch = FetchType.EAGER)
