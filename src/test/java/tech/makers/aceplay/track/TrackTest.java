@@ -1,17 +1,28 @@
 package tech.makers.aceplay.track;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tech.makers.aceplay.track.Track;
+import tech.makers.aceplay.user.User;
 
 import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 // https://www.youtube.com/watch?v=L4vkcgRnw2g&t=798s
 class TrackTest {
+
+  private User mockUser;
+  
+  @BeforeEach
+  public void setUp(){
+    mockUser = mock(User.class);	
+  }
+  
   @Test
   void testConstructs() throws MalformedURLException {
-    Track subject = new Track("Hello, world!", "Sarah", "https://example.org/track.mp3");
+    Track subject = new Track(mockUser, "Hello, world!", "Sarah", "https://example.org/track.mp3");
     assertEquals("Hello, world!", subject.getTitle());
     assertEquals("Sarah", subject.getArtist());
     assertEquals("https://example.org/track.mp3", subject.getPublicUrl().toString());
@@ -20,7 +31,7 @@ class TrackTest {
 
   @Test
   void testToString() throws MalformedURLException {
-    Track subject = new Track("Hello, world!", "Sarah", "https://example.org/track.mp3");
+    Track subject = new Track(mockUser, "Hello, world!", "Sarah", "https://example.org/track.mp3");
     assertEquals(
         "Track[id=null title='Hello, world!' artist='Sarah' publicUrl='https://example.org/track.mp3']",
         subject.toString());
